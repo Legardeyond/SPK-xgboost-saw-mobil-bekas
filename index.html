@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPK Cerdas: Prediksi & Rekomendasi Mobil Bekas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body class="bg-gray-50 text-gray-700">
+
+    <div class="container mx-auto px-4 py-8">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">Sistem Pendukung Keputusan Cerdas</h1>
+            <p class="mt-2 text-lg text-gray-600">Prediksi Harga & Rekomendasi Personal Mobil Bekas</p>
+        </header>
+
+        <nav class="bg-white rounded-lg shadow-sm mb-8 sticky top-4 z-10">
+            <div class="flex justify-center border-b border-gray-200">
+                <button data-tab="beranda" class="tab-button active font-semibold py-4 px-6 text-gray-500 hover:text-gray-800">Beranda</button>
+                <button data-tab="prediksi" class="tab-button font-semibold py-4 px-6 text-gray-500 hover:text-gray-800">Prediksi Harga</button>
+                <button data-tab="rekomendasi" class="tab-button font-semibold py-4 px-6 text-gray-500 hover:text-gray-800">Rekomendasi Mobil</button>
+                <button data-tab="tentang" class="tab-button font-semibold py-4 px-6 text-gray-500 hover:text-gray-800">Tentang Proyek</button>
+            </div>
+        </nav>
+
+        <main>
+            <section id="beranda" class="tab-content animate-fade-in">
+                <div class="section-card text-center">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Selamat Datang di Dasbor Analisis Mobil Bekas</h2>
+                    <p class="max-w-3xl mx-auto text-gray-600 mb-8">
+                        Aplikasi ini memanfaatkan <strong><em>machine learning</em></strong> untuk memberikan estimasi harga objektif dan metode pendukung keputusan untuk menyarankan mobil yang paling sesuai dengan preferensi unik Anda.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                        <div class="bg-gray-100 p-6 rounded-lg text-left">
+                            <h3 class="text-xl font-semibold text-indigo-700 mb-2">📈 Prediksi Harga Akurat</h3>
+                            <p>Gunakan model XGBoost yang telah dilatih pada ribuan data mobil untuk mendapatkan estimasi harga pasar yang wajar dan realistis.</p>
+                        </div>
+                        <div class="bg-gray-100 p-6 rounded-lg text-left">
+                            <h3 class="text-xl font-semibold text-indigo-700 mb-2">🤖 Rekomendasi Personal</h3>
+                            <p>Temukan mobil impian Anda dengan metode SAW. Atur preferensi Anda dan sistem kami akan menyusun peringkat mobil yang paling sesuai.</p>
+                        </div>
+                    </div>
+                     <button onclick="document.querySelector('[data-tab=\'prediksi\']').click()" class="mt-8 bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-colors">Mulai Coba Fitur →</button>
+                </div>
+            </section>
+            
+            <section id="prediksi" class="tab-content hidden animate-fade-in">
+                 <div class="section-card">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-1 text-center">Alat Prediksi Harga Mobil</h2>
+                    <p class="text-center text-gray-600 mb-6">Pilih spesifikasi mobil untuk mendapatkan estimasi harga.</p>
+                    <div class="max-w-4xl mx-auto bg-gray-50 p-6 rounded-lg border border-gray-200">
+                        <form id="prediction-form" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div><label for="Make" class="block text-sm font-medium text-gray-700">Merek</label><select id="Make" name="Make" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></select></div>
+                            <div><label for="Model" class="block text-sm font-medium text-gray-700">Model</label><select id="Model" name="Model" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></select></div>
+                            <div><label for="Year" class="block text-sm font-medium text-gray-700">Tahun Produksi</label><input type="number" id="Year" value="2018" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></div>
+                            <div><label for="Mileage(kms)" class="block text-sm font-medium text-gray-700">Jarak Tempuh (km)</label><input type="number" id="Mileage(kms)" value="60000" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></div>
+                            <div><label for="Engine Type" class="block text-sm font-medium text-gray-700">Jenis Mesin</label><select id="Engine Type" name="Engine Type" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"><option>Petrol</option><option>Diesel</option><option>CNG</option></select></div>
+                            <div><label for="Engine Capacity(CC)" class="block text-sm font-medium text-gray-700">Kapasitas Mesin (CC)</label><input type="number" id="Engine Capacity(CC)" value="1300" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></div>
+                            <div><label for="Transmission" class="block text-sm font-medium text-gray-700">Transmisi</label><select id="Transmission" name="Transmission" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"><option>Automatic</option><option>Manual</option></select></div>
+                            <div class="md:col-span-3 text-center"><button type="submit" id="predict-btn" class="w-full md:w-auto bg-indigo-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-indigo-700 transition-colors">Prediksi Harga</button></div>
+                        </form>
+                    </div>
+                    <div id="prediction-result-container" class="mt-6 text-center hidden"><div id="loader" class="loader hidden"></div><div id="prediction-output"><p class="text-gray-600">Estimasi Harga Pasar (IDR):</p><p class="text-4xl font-bold text-indigo-700 my-2" id="predicted-price"></p><p class="text-sm text-gray-500">*Prediksi ini dihasilkan oleh model XGBoost dan dikonversi ke Rupiah.</p></div></div>
+                </div>
+            </section>
+
+            <section id="rekomendasi" class="tab-content hidden animate-fade-in">
+                <div class="section-card">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-1 text-center">Alat Rekomendasi Mobil</h2>
+                    <p class="text-center text-gray-600 mb-6">Atur preferensi Anda, dan kami akan carikan mobil terbaik untuk Anda.</p>
+                    <div id="saw-controls" class="mb-8 p-6 bg-gray-50 border border-gray-200 rounded-lg grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-6">
+                        <div><label for="w-price" class="font-medium">Harga</label><input type="range" id="w-price" min="1" max="5" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"><span class="text-sm text-indigo-600 font-semibold" id="val-price"></span></div>
+                        <div><label for="w-Year" class="font-medium">Tahun</label><input type="range" id="w-Year" min="1" max="5" value="4" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"><span class="text-sm text-indigo-600 font-semibold" id="val-Year"></span></div>
+                        <div><label for="w-Mileage" class="font-medium">Jarak Tempuh</label><input type="range" id="w-Mileage" min="1" max="5" value="3" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"><span class="text-sm text-indigo-600 font-semibold" id="val-Mileage"></span></div>
+                        <div><label for="w-Engine" class="font-medium">Mesin (CC)</label><input type="range" id="w-Engine" min="1" max="5" value="2" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"><span class="text-sm text-indigo-600 font-semibold" id="val-Engine"></span></div>
+                    </div>
+                    <div class="text-center mb-8"><button id="get-recommendation-btn" class="bg-indigo-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-indigo-700 transition-colors">Dapatkan Rekomendasi</button></div>
+                    <div id="recommendation-results-container" class="hidden">
+                        <div id="recommendation-loader" class="loader hidden"></div>
+                        <div id="recommendation-output">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Peringkat Rekomendasi Teratas</h3>
+                            <div class="overflow-x-auto"><table class="min-w-full bg-white divide-y divide-gray-200 rounded-lg shadow-sm"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Peringkat</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mobil</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estimasi Harga (IDR)</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Skor Preferensi</th></tr></thead><tbody id="saw-table-body" class="bg-white divide-y divide-gray-200"></tbody></table></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="tentang" class="tab-content hidden animate-fade-in">
+                <div class="section-card">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Tentang Proyek Penelitian</h2>
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Tujuan</h3>
+                            <p class="text-gray-600">Penelitian ini bertujuan merancang Sistem Pendukung Keputusan (SPK) untuk membantu transaksi mobil bekas. Sistem ini mengintegrasikan dua metode utama: (1) <strong>Prediksi Harga</strong> menggunakan algoritma <strong><em>machine learning</em></strong> canggih, <strong>XGBoost</strong>, untuk memberikan estimasi harga yang objektif, dan (2) <strong>Rekomendasi Personal</strong> menggunakan metode <strong><em>Simple Additive Weighting</em> (SAW)</strong> yang memungkinkan pengguna menemukan mobil terbaik berdasarkan kriteria dan bobot preferensi mereka sendiri.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Diagram Proses Penelitian</h3>
+                            <div class="p-6 bg-gray-50 rounded-lg border border-gray-200">
+                               <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4 text-center">
+                                    <div class="flex flex-col items-center"><div class="bg-indigo-100 text-indigo-700 rounded-full h-16 w-16 flex items-center justify-center font-bold text-lg">1</div><p class="mt-2 font-medium">Pengumpulan Data</p></div>
+                                    <div class="text-gray-300 font-bold text-2xl hidden md:block">→</div>
+                                    <div class="flex flex-col items-center"><div class="bg-indigo-100 text-indigo-700 rounded-full h-16 w-16 flex items-center justify-center font-bold text-lg">2</div><p class="mt-2 font-medium">Pra-pemrosesan</p></div>
+                                    <div class="text-gray-300 font-bold text-2xl hidden md:block">→</div>
+                                    <div class="flex flex-col items-center"><div class="bg-indigo-100 text-indigo-700 rounded-full h-16 w-16 flex items-center justify-center font-bold text-lg">3</div><p class="mt-2 font-medium">Pemodelan</p></div>
+                                    <div class="text-gray-300 font-bold text-2xl hidden md:block">→</div>
+                                    <div class="flex flex-col items-center"><div class="bg-indigo-100 text-indigo-700 rounded-full h-16 w-16 flex items-center justify-center font-bold text-lg">4</div><p class="mt-2 font-medium">Evaluasi</p></div>
+                                    <div class="text-gray-300 font-bold text-2xl hidden md:block">→</div>
+                                    <div class="flex flex-col items-center"><div class="bg-indigo-100 text-indigo-700 rounded-full h-16 w-16 flex items-center justify-center font-bold text-lg">5</div><p class="mt-2 font-medium">Implementasi</p></div>
+                               </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Hasil Evaluasi Kuantitatif Model</h3>
+                            <p class="text-gray-600 mb-4">Untuk memastikan keandalan model, evaluasi dilakukan pada data latih dan data uji secara terpisah. Perbandingan ini penting untuk memeriksa apakah model mengalami <em>overfitting</em> (terlalu menghafal data latih) atau tidak. Hasil yang baik ditandai dengan performa yang tinggi dan konsisten di kedua set data.</p>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full text-sm text-left text-gray-500">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3">Metrik Evaluasi</th>
+                                            <th scope="col" class="px-6 py-3 text-center">Data Latih (Train)</th>
+                                            <th scope="col" class="px-6 py-3 text-center">Data Uji (Test)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="bg-white border-b">
+                                            <td class="px-6 py-4 font-medium text-gray-900">R-squared (R²)</td>
+                                            <td class="px-6 py-4 text-center">0.9881</td>
+                                            <td class="px-6 py-4 text-center">0.9748 </td>
+                                        </tr>
+                                        <tr class="bg-white border-b">
+                                            <td class="px-6 py-4 font-medium text-gray-900">RMSE (dalam INR)</td>
+                                            <td class="px-6 py-4 text-center">449,236.09</td>
+                                            <td class="px-6 py-4 text-center">627,082.88</td>
+                                        </tr>
+                                        <tr class="bg-white">
+                                            <td class="px-6 py-4 font-medium text-gray-900">MAPE (%)</td>
+                                            <td class="px-6 py-4 text-center">9.24 %</td>
+                                            <td class="px-6 py-4 text-center">9.90 %</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <!-- <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Visualisasi Kinerja Model (Aktual vs. Prediksi)</h3>
+                            <p class="text-gray-600 mb-4">Grafik di bawah ini memvisualisasikan performa model pada data uji. Setiap titik mewakili satu mobil. Garis merah diagonal adalah garis "prediksi sempurna". Semakin dekat titik ke garis ini, semakin akurat prediksi model.</p>
+                            <div class="chart-container">
+                                <canvas id="performanceChart"></canvas>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

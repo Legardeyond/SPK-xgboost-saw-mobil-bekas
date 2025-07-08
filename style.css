@@ -1,0 +1,59 @@
+/* Mengatur font utama untuk seluruh halaman */
+body { font-family: 'Inter', sans-serif; }
+
+/* Gaya untuk tombol tab navigasi */
+.tab-button {
+    transition: all 0.3s ease;
+    border-bottom: 4px solid transparent;
+}
+
+/* Gaya untuk tombol tab yang sedang aktif */
+.tab-button.active {
+    border-bottom-color: #4f46e5;
+    color: #1f2937;
+}
+
+/* Kartu utama untuk setiap bagian/section */
+.section-card {
+    background-color: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* Animasi fade-in sederhana untuk konten */
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4f46e5;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+/* Indikator loading (spinner) */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Kontainer untuk grafik/chart */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 350px;
+    max-height: 400px;
+}
